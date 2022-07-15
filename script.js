@@ -1,3 +1,4 @@
+const buttonEsvaziar = document.querySelector('.empty-cart');
 const carrinho = document.querySelector('.cart__items');
 
 const get = () => {
@@ -6,12 +7,12 @@ const get = () => {
 };
 const valorTotal = () => {
   const listas = document.querySelectorAll('li');
-  let sum = 0;
+  let soma = 0;
   listas.forEach((li) => {
     const valores = li.innerText.match(/[\d,.]+/g);
-    sum += parseFloat(valores[valores.length - 1]);
+    soma += parseFloat(valores[valores.length - 1]);
   });
-  document.querySelector('.total-price').innerText = sum;
+  document.querySelector('.total-price').innerText = soma;
 };
 const createProductImageElement = (imageSource) => {
   const img = document.createElement('img');
@@ -88,9 +89,21 @@ const saveStorage = () => {
   });
 };
 
+const empty = () => {
+  buttonEsvaziar.addEventListener('click', () => {
+    const listas = document.querySelectorAll('li');
+    listas.forEach((li) => {
+      li.remove();
+    });
+    get();
+    valorTotal();
+  });
+};
+
 window.onload = async () => {
   await products();
   cart();
   saveStorage();
   valorTotal();
+  empty();
 };
