@@ -1,21 +1,18 @@
 const buttonEsvaziar = document.querySelector('.empty-cart');
 const carrinho = document.querySelector('.cart__items');
-const container = document.querySelector('.container');
 const loader = document.querySelector('.loading');
 
-const carregando = ["carregando", "carregando", "carregando", "carregando"];
+// const carregando = ['carregando', 'carregando', 'carregando', 'carregando'];
 
-const interval = 125;
+// const interval = 125;
 
-const load = (arr) => {
-  setInterval(() => {
-    loader.innerText = arr[Math.floor(Math.random() * arr.length)];
-  }, interval);
-};
+// const load = (arr) => {
+//   setInterval(() => {
+//     loader.innerText = arr[Math.floor(Math.random() * arr.length)];
+//   }, interval);
+// };
 
-const init = () => {
-  load(carregando)
-};
+// load(carregando);
 
 const get = () => {
   const gettin = carrinho.innerHTML;
@@ -47,12 +44,12 @@ const createCustomElement = (element, className, innerText) => {
 const createProductItemElement = ({ sku, name, image }) => {
   const section = document.createElement('section');
   section.className = 'item';
-  
+
   section.appendChild(createCustomElement('span', 'item__sku', sku));
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  
+
   return section;
 };
 
@@ -101,8 +98,8 @@ const cart = () => {
 
 const products = async () => {
   const result = await fetchProducts('computador');
-  // document.querySelector('.loading').style.display = "none";
   loader.remove();
+  // document.querySelector('.loading').style.display = "none";
   result.forEach(({ id, title, thumbnail }) => {
     const section = createProductItemElement({ sku: id, name: title, image: thumbnail });
     document.querySelector('.items').appendChild(section);
@@ -116,7 +113,6 @@ const saveStorage = () => {
     li.addEventListener('click', cartItemClickListener);
   });
 };
-
 
 window.onload = async () => {
   await products();
